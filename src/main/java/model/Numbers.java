@@ -67,13 +67,15 @@ public class Numbers {
 
     public int countBall(Numbers otherNumbers) {
         boolean[] ballCountArray = new boolean[13];
+        int[] ballIndexArray = new int[13];
         int cnt = 0;
 
         for (int i = 0; i < 3; ++i) {
             ballCountArray[this.numbers.get(i)] = true;
+            ballIndexArray[this.numbers.get(i)] = i;
         }
         for (int i = 0; i < 3; ++i) {
-            if (ballCountArray[otherNumbers.numbers.get(i)]) {
+            if (ballCountArray[otherNumbers.numbers.get(i)] && ballIndexArray[otherNumbers.numbers.get(i)] != i) {
                 cnt += 1;
             }
         }
