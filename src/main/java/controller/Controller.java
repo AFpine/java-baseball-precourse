@@ -15,7 +15,7 @@ public class Controller {
     public void run() {
         while (true) {
             play();
-            outputView.OutputCommand();
+            outputView.OutputInputCommand();
 
             int inputCommand = inputView.InputCommand();
             if(inputCommand == 1) continue;
@@ -26,7 +26,7 @@ public class Controller {
     private void play() {
         Game game = new Game();
         while (true) {
-            outputView.OutputGameStart();
+            outputView.OutputInputNumber();
 
             Numbers userNumbers = new Numbers(inputView.InputUserNumbers());
 
