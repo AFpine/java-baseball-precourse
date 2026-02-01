@@ -26,14 +26,18 @@ public class Controller {
     private void play() {
         Game game = new Game();
         while (true) {
-            outputView.OutputInputNumber();
+            try {
+                outputView.OutputInputNumber();
 
-            Numbers userNumbers = new Numbers(inputView.InputUserNumbers());
+                Numbers userNumbers = new Numbers(inputView.InputUserNumbers());
 
-            GameResult result = game.getResult(userNumbers);
-            outputView.OutputResult(result);
+                GameResult result = game.getResult(userNumbers);
+                outputView.OutputResult(result);
 
-            if(result.isFinish()) break;
+                if(result.isFinish()) break;
+            } catch (IllegalArgumentException e) {
+                outputView.OutputError(e.getMessage());
+            }
         }
         outputView.OutputWin();
     }

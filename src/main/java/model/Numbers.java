@@ -6,20 +6,56 @@ import java.util.List;
 public class Numbers {
     private final List<Integer> numbers;
 
+    public Numbers(String inputNumbersString) {
+        this.numbers = validateAndParseInputString(inputNumbersString);
+    }
+
     public Numbers(List<Integer> numbers) {
         this.numbers = numbers;
     }
 
-    public boolean isValidateNumbers(List<Integer> numbers) {
-        if (numbers.size() != 3) return false;
+    private List<Integer> validateAndParseInputString(String inputNumbersString) {
+        if (!validateInputLength(inputNumbersString)) {
+            throw new IllegalArgumentException("3자리여야 합니다.");
+        }
+        if (!validateInputIsNumbers(inputNumbersString)) {
+            throw new IllegalArgumentException("숫자만 입력해야 합니다.");
+        }
+        if (!validateInputHasDistinctDigits(inputNumbersString)) {
+            throw new IllegalArgumentException("중복된 숫자를 다른 자릿수에 사용할 수 없습니다.");
+        }
+        return convertStringToIntegerList(inputNumbersString);
+    }
+
+    private boolean validateInputLength(String inputNumbersString) {
+        return inputNumbersString.length() == 3;
+    }
+
+    private boolean validateInputIsNumbers(String inputNumbersString) {
         for (int i = 0; i < 3; ++i) {
-            for (int j = 0; j < 3; ++j) {
-                if (i == j) continue;
-                if (numbers.get(i).equals(numbers.get(j))) return false;
-            }
+            if (inputNumbersString.charAt(i) < '0' || inputNumbersString.charAt(i) > '9') return false;
         }
         return true;
     }
+
+    private boolean validateInputHasDistinctDigits(String inputNumbersString) {
+        boolean[] digitsArray = new boolean[13];
+        for (int i = 0; i < 3; ++i) {
+            int digit = inputNumbersString.charAt(i) - '0';
+            if (digitsArray[digit]) return false;
+            digitsArray[digit] = true;
+        }
+        return true;
+    }
+
+    private List<Integer> convertStringToIntegerList(String inputNumbersString) {
+        List<Integer> ret = new ArrayList<Integer>();
+        for (int i = 0; i < 3; ++i) {
+            ret.add(inputNumbersString.charAt(i) - '0');
+        }
+        return ret;
+    }
+
 
     public int countStrike(Numbers otherNumbers) {
         int cnt = 0;
