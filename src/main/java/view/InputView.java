@@ -9,7 +9,6 @@ public class InputView {
 
     public List<Integer> InputUserNumbers() {
         String input = scanner.nextLine();
-
         return numberToIntegerList(input);
     }
 

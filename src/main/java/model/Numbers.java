@@ -21,20 +21,20 @@ public class Numbers {
         return true;
     }
 
-    public int countStrike(Numbers correctNumbers) {
+    public int countStrike(Numbers otherNumbers) {
         int cnt = 0;
         for (int i = 0; i < 3; ++i) {
-            if (this.numbers.get(i).equals(correctNumbers.numbers.get(i))) cnt += 1;
+            if (this.numbers.get(i).equals(otherNumbers.numbers.get(i))) cnt += 1;
         }
         return cnt;
     }
 
-    public int countBall(Numbers correctNumbers) {
+    public int countBall(Numbers otherNumbers) {
         int cnt = 0;
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 3; ++j) {
                 if (i == j) continue;
-                if (this.numbers.get(i).equals(correctNumbers.numbers.get(j))) cnt += 1;
+                if (this.numbers.get(i).equals(otherNumbers.numbers.get(j))) cnt += 1;
             }
         }
         return cnt;
