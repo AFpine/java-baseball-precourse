@@ -66,11 +66,15 @@ public class Numbers {
     }
 
     public int countBall(Numbers otherNumbers) {
+        boolean[] ballCountArray = new boolean[13];
         int cnt = 0;
+
         for (int i = 0; i < 3; ++i) {
-            for (int j = 0; j < 3; ++j) {
-                if (i == j) continue;
-                if (this.numbers.get(i).equals(otherNumbers.numbers.get(j))) cnt += 1;
+            ballCountArray[this.numbers.get(i)] = true;
+        }
+        for (int i = 0; i < 3; ++i) {
+            if (ballCountArray[otherNumbers.numbers.get(i)]) {
+                cnt += 1;
             }
         }
         return cnt;
