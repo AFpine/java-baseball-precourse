@@ -14,16 +14,12 @@ public class Controller {
 
     public void run() {
         while (true) {
-            play();
-            outputView.OutputInputCommand();
-
-            int inputCommand = inputView.InputCommand();
-            if(inputCommand == 1) continue;
-            if(inputCommand == 2) break;
+            int result = play();
+            if (result == 2) break;
         }
     }
 
-    private void play() {
+    private int play() {
         Game game = new Game();
         while (true) {
             try {
@@ -34,11 +30,22 @@ public class Controller {
                 GameResult result = game.getResult(userNumbers);
                 outputView.OutputResult(result);
 
-                if(result.isFinish()) break;
+                if (result.isFinish()) {
+                    break;
+                }
             } catch (IllegalArgumentException e) {
                 outputView.OutputError(e.getMessage());
             }
         }
         outputView.OutputWin();
+
+        while (true) {
+            try {
+                outputView.OutputInputCommand();
+                return game.getCommand(inputView.InputCommand());
+            } catch (IllegalArgumentException e) {
+                outputView.OutputError(e.getMessage());
+            }
+        }
     }
 }
